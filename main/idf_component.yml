@@ -1,0 +1,12 @@
+dependencies:
+  idf: ">=5.5"
+  espressif/cjson:
+    version: "1.7.19~2"
+  espressif/led_strip:
+    version: "^3.0.3"
+  lvgl/lvgl:
+    override_path: ../components/third_party/lvgl__lvgl
+  espressif/esp_lvgl_adapter:
+    override_path: ../components/third_party/espressif__esp_lvgl_adapter
+  atanisoft/esp_lcd_touch_xpt2046:
+    version: "1.0.6"

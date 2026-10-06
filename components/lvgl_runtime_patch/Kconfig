@@ -1,0 +1,19 @@
+menu "Buddy LVGL runtime"
+
+config BUDDY_LVGL_CORE
+    int "LVGL worker, swdraw and UI core"
+    range 0 1
+    default 0 if FREERTOS_UNICORE
+    default 1
+    help
+        CPU affinity shared by the LVGL adapter worker, LVGL software draw
+        threads and the Buddy UI task. ESP32-S3 uses CPU1 by default.
+
+config BUDDY_DYNAMIC_ZH_FONT
+    bool "Load dynamic Chinese binfont"
+    default y
+    help
+        Load S:fonts/zh_cn_14.bin as the fallback font for Chinese. Disable
+        only to isolate a rendering failure; built-in Chinese fonts remain.
+
+endmenu

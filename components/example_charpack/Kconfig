@@ -1,0 +1,29 @@
+menu "Example Charpack"
+
+config EXAMPLE_CHARPACK_SPIFFS_PARTITION_LABEL
+    string "SPIFFS partition label"
+    default "storage"
+
+config EXAMPLE_CHARPACK_MOUNT_POINT
+    string "Mount point"
+    default "/spiffs"
+
+config EXAMPLE_CHARPACK_PACKS_ROOT
+    string "Installed packs root"
+    default "/spiffs/packs"
+
+config EXAMPLE_CHARPACK_STAGING_ROOT
+    string "Staging root"
+    default "/spiffs/incoming"
+
+config EXAMPLE_CHARPACK_MAX_MANIFEST_SIZE
+    int "Max manifest bytes"
+    range 256 16384
+    default 8192
+
+config EXAMPLE_CHARPACK_PACK_ID_MAX
+    int "Pack id max length"
+    range 8 64
+    default 32
+
+endmenu

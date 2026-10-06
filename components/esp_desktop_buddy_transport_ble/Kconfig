@@ -1,0 +1,47 @@
+menu "ESP Desktop Buddy BLE Transport"
+
+config ESP_DESKTOP_BUDDY_TRANSPORT_BLE_PERSIST_BONDS_IN_NVS
+    bool "Persist bonding data in NVS"
+    depends on BT_NIMBLE_ENABLED && BT_NIMBLE_SECURITY_ENABLE
+    default y
+    select BT_NIMBLE_NVS_PERSIST
+    help
+        Enable NimBLE's NVS-backed bond store by default for this transport.
+        This keeps BLE bonds across reboot for examples that enable bonding.
+
+config ESP_DESKTOP_BUDDY_TRANSPORT_BLE_NOTIFY_CHUNK_CAP
+    int "Max notify payload chunk"
+    range 20 244
+    default 180
+    help
+        Upper bound for each outbound BLE notification payload after MTU-based
+        chunk sizing is applied. Lower this if your peer or controller behaves
+        poorly with larger notification writes.
+
+config ESP_DESKTOP_BUDDY_TRANSPORT_BLE_NOTIFY_CHUNK_DELAY_MS
+    int "Delay after notify chunks (ms)"
+    range 0 20
+    default 4
+    help
+        Delay inserted after BLE notification chunks to give the BLE stack and
+        peer receive path time to drain. This is especially useful during
+        first-pairing paths where the link can still be at the default 23-byte
+        ATT MTU.
+
+config ESP_DESKTOP_BUDDY_TRANSPORT_BLE_ADV_ITVL_MIN
+    int "Advertising interval min"
+    range 32 16384
+    default 160
+    help
+        Minimum advertising interval, in 0.625 ms units, used when starting
+        Buddy advertising.
+
+config ESP_DESKTOP_BUDDY_TRANSPORT_BLE_ADV_ITVL_MAX
+    int "Advertising interval max"
+    range 32 16384
+    default 160
+    help
+        Maximum advertising interval, in 0.625 ms units, used when starting
+        Buddy advertising. Set this equal to the minimum for a fixed interval.
+
+endmenu

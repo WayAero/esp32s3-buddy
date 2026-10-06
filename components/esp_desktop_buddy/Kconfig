@@ -1,0 +1,120 @@
+menu "ESP Desktop Buddy Core"
+
+config ESP_DESKTOP_BUDDY_LINE_MAX
+    int "Max JSON line length"
+    range 256 4096
+    default 4096
+    help
+        Maximum inbound or outbound UTF-8 JSON payload bytes before the trailing newline.
+
+config ESP_DESKTOP_BUDDY_FEED_RX_CHUNK_MAX
+    int "Max bytes per esp_desktop_buddy_receive_bytes() call"
+    range 16 1024
+    default 512
+    help
+        Maximum number of bytes accepted by a single esp_desktop_buddy_receive_bytes() call.
+        This currently also sizes each RX item stored in the core inbox queue,
+        so calls larger than this are rejected before any bytes are accepted.
+        This is an internal core buffering limit, not a transport tuning knob.
+
+config ESP_DESKTOP_BUDDY_RX_INBOX_DEPTH
+    int "RX inbox depth"
+    range 2 32
+    default 16
+    help
+        Number of pending RX byte chunks that can wait in the core inbox before
+        the worker task processes them. Increase this if your transport can burst
+        multiple packets faster than the core task drains them.
+
+config ESP_DESKTOP_BUDDY_ACTION_QUEUE_DEPTH
+    int "Action inbox depth"
+    range 2 32
+    default 8
+    help
+        Number of locally posted actions, such as prompt replies, that can wait
+        in the core inbox alongside RX work before being processed.
+
+config ESP_DESKTOP_BUDDY_TX_QUEUE_DEPTH
+    int "TX queue depth"
+    range 2 32
+    default 8
+    help
+        Number of encoded outbound frames that can be buffered for the active
+        transport before backpressure is reported to the caller.
+
+config ESP_DESKTOP_BUDDY_LIVE_TIMEOUT_MS
+    int "State live timeout (ms)"
+    range 1000 120000
+    default 30000
+    help
+        Milliseconds after the most recent accepted state push before the core marks
+        the session as not live and rejects stale prompt responses.
+
+config ESP_DESKTOP_BUDDY_ENTRY_COUNT_MAX
+    int "Mirrored entry count limit"
+    range 1 32
+    default 8
+    help
+        Maximum number of state entry strings mirrored inside the Buddy core.
+        This internal storage limit also bounds what esp_desktop_buddy_get_entry_count() and
+        esp_desktop_buddy_get_entry() can return to callers.
+
+config ESP_DESKTOP_BUDDY_ENTRY_STRING_MAX
+    int "Mirrored entry string limit"
+    range 16 256
+    default 92
+    help
+        Maximum UTF-8 bytes stored for each mirrored state entry string, not
+        including the trailing NUL terminator kept in internal core storage.
+
+config ESP_DESKTOP_BUDDY_MESSAGE_MAX
+    int "Mirrored message string limit"
+    range 16 256
+    default 96
+    help
+        Maximum UTF-8 bytes stored for the mirrored state message string, not
+        including the trailing NUL terminator kept in internal core storage.
+
+config ESP_DESKTOP_BUDDY_PROMPT_ID_MAX
+    int "Prompt id string limit"
+    range 8 128
+    default 40
+    help
+        Maximum UTF-8 bytes stored for the active prompt identifier in the core's
+        mirrored state. esp_desktop_buddy_get_prompt_id() and prompt-response events reflect
+        this stored value.
+
+config ESP_DESKTOP_BUDDY_PROMPT_TOOL_MAX
+    int "Prompt tool string limit"
+    range 8 64
+    default 20
+    help
+        Maximum UTF-8 bytes stored for the active prompt tool string in the
+        core's mirrored state.
+
+config ESP_DESKTOP_BUDDY_PROMPT_HINT_MAX
+    int "Prompt hint string limit"
+    range 8 1024
+    default 1024
+    help
+        Maximum UTF-8 bytes stored for the active prompt hint string in the
+        core's mirrored state.
+
+config ESP_DESKTOP_BUDDY_PROTOCOL_TRACE
+    bool "Log raw Buddy protocol frames"
+    default n
+    help
+        Log inbound and outbound Buddy JSON lines at the core protocol
+        boundary. This is intended for transport and protocol debugging and
+        can expose user-visible content such as prompts, names, and state
+        text, so it is disabled by default.
+
+config ESP_DESKTOP_BUDDY_LOG_PREVIEW_LEN
+    int "Log preview length"
+    range 32 512
+    default 240
+    help
+        Maximum number of payload bytes copied into malformed-input logs and
+        protocol trace previews.
+
+endmenu

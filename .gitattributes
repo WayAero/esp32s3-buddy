@@ -1,0 +1,20 @@
+* text=auto
+
+.clangd text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+dependencies.lock text eol=lf
+
+*.c text eol=lf
+*.h text eol=lf
+*.cmake text eol=lf
+CMakeLists.txt text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.csv text eol=lf
+*.md text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.ps1 text eol=lf
+sdkconfig.defaults text eol=lf

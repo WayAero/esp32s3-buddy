@@ -1,0 +1,4 @@
+dependencies:
+  idf: ">=5.4"
+  esp_desktop_buddy:
+    path: ../esp_desktop_buddy
