@@ -250,6 +250,7 @@ tools/release/            本地发行打包工具
 - [ESP-IDF](https://github.com/espressif/esp-idf)、[LVGL](https://github.com/lvgl/lvgl) 与 [esp-iot-solution](https://github.com/espressif/esp-iot-solution)：嵌入式框架、图形库与 adapter 上游。
 - [智工具 ESP32 在线烧录](https://zutils.cn/tools/esp32-flash/)：浏览器烧录入口。
 - [cc-buddy-bridge](https://github.com/SnowWarri0r/cc-buddy-bridge)：Claude Code 会话与审批桥接工具。
+- [Nwflower / dsh-claude-style](https://github.com/Nwflower/dsh-claude-style)：DeepSeek Harness 的 Claude 风格主题与配色参考。
 
 也感谢字体与触摸驱动等第三方组件的作者，以及参与复刻、问题反馈和修正的贡献者。具体依赖与版权声明见下方许可清单。
 
